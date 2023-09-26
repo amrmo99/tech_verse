@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:session7test/Components/bezierContainer.dart';
-import 'package:session7test/Screens/DetailsScreen%20.dart';
+
 import 'package:session7test/Screens/LoginScreen.dart';
 import 'package:session7test/Screens/NavBar.dart';
 import 'package:session7test/Screens/SplashScreen.dart';
 import 'package:session7test/Screens/signup.dart';
-import 'package:session7test/Screens/simpleUser.dart';
-import 'package:session7test/Screens/users.dart';
+
+
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key, this.title}) : super(key: key);
@@ -90,8 +90,7 @@ class _LoginPageState extends State<LoginScreen> {
             context, MaterialPageRoute(builder: (context) => SignUpPage()));
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 20),
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.only(bottom: 15, left: 15, right: 15),
         alignment: Alignment.bottomCenter,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -197,7 +196,7 @@ class _LoginPageState extends State<LoginScreen> {
                       height: 20,
                     ),
                     _submitButton(),
-                    SizedBox(height: height * .14),
+                    SizedBox(height: height * .10),
                     _loginAccountLabel(),
                   ],
                 ),

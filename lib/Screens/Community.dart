@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            appBar: AppBar(
+      appBar: AppBar(
         title: Container(
           height: 40,
           margin: EdgeInsets.only(top: 17),
@@ -71,7 +71,6 @@ class _HomePageState extends State<HomePage> {
         ],
         backgroundColor: Colors.white,
       ),
-      
       body: Container(
         padding: EdgeInsets.only(left: 10, right: 10, top: 20),
         child: Column(
@@ -161,7 +160,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Text(
                 "i have finished my first course, and i got 200 points!",
-                style: TextStyle(fontSize: 15, color: Colors.grey[800]),
+                style: TextStyle(fontSize: 15, color: Color(0xff385f98)),
               ),
               Row(
                 children: [
@@ -171,17 +170,18 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Text(
                     "2m ago  -  ",
+                     style: TextStyle(color: Color(0xff385f98)),
                   ),
                   Icon(
                     Icons.group,
                     size: 17,
                   ),
-                  Text("with Avery Davis  -  "),
+                  Text("with Avery Davis  -  ",  style: TextStyle(color: Color(0xff385f98)),),
                   Icon(
                     Icons.map_outlined,
                     size: 17,
                   ),
-                  Text("nasr city")
+                  Text("nasr city",  style: TextStyle(color: Color(0xff385f98)),)
                 ],
               ),
               Padding(
@@ -190,13 +190,13 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Icon(Icons.favorite, size: 28, color: Colors.red),
                     Text(
-                      "  you & 11 peoples react it",
+                      "  you & 11 peoples react it", style: TextStyle(color: Color(0xff385f98)),
                     ),
                     SizedBox(
-                      width: 45,
+                      width: 20,
                     ),
                     Text(
-                      "10 comments",
+                      "10 comments", style: TextStyle(color: Color(0xff385f98)),
                     ),
                   ],
                 ),
@@ -243,6 +243,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
+                     color: Color(0xff385f98),
                   ),
                 ),
                 Text(

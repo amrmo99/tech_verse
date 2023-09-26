@@ -1,9 +1,9 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:session7test/Screens/BlogsScreen.dart';
 import 'package:session7test/Screens/Community.dart';
 import 'package:session7test/Screens/ProfilPage.dart';
 import 'package:session7test/Screens/ShopScreen.dart';
+import 'package:session7test/Screens/home_screen.dart';
 
 class MyNevBar extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _MyNevBarState extends State<MyNevBar> {
   List listOfColors = [
     ShopScreen(),
     SocialMedia(),
-    BlogsScreen(),
+    HomeScreen(),
     ProfilPage(
       url: "https://cdn-icons-png.flaticon.com/128/2922/2922506.png",
     )

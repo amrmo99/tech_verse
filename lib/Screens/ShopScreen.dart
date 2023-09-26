@@ -1,14 +1,245 @@
 import 'package:flutter/material.dart';
-import 'package:session7test/Components/CarouselWithDotsPage.dart';
 import 'package:session7test/Models/ShopScreen/Catagory.dart';
 import 'package:session7test/Models/ShopScreen/Products.dart';
 
-class ShopScreen extends StatelessWidget {
+import 'package:session7test/Screens/ProfilPage.dart';
+import 'package:session7test/Screens/VideoPlayerScreen%20.dart';
+import 'package:session7test/main.dart';
+
+class ShopScreen extends StatefulWidget {
   const ShopScreen({Key? key}) : super(key: key);
 
   @override
+  State<ShopScreen> createState() => _ShopScreenState();
+}
+
+class _ShopScreenState extends State<ShopScreen> {
+  @override
   Widget build(BuildContext context) {
     var searchProduct = TextEditingController();
+
+    int selectedVideoIndex = -1;
+    final List<String> videoPaths = [
+      'videos/course1.mp4',
+      'videos/course1.mp4',
+      'videos/course1.mp4',
+      'videos/course1.mp4',
+      'videos/course1.mp4',
+      'videos/course1.mp4',
+      // Add paths for other videos here
+    ];
+
+    Widget buildMego(Products products, int index) {
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedVideoIndex = index;
+
+            print(videoPaths[index]);
+          });
+
+          // Navigate to VideoCourse screen with the selected video path
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VideoCourse(videoPath: videoPaths[index]),
+            ),
+          );
+        },
+        child: Container(
+          width: 150,
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade300),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            // shape: BoxShape.
+            child: Padding(
+              padding: const EdgeInsets.all(7.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.network(
+                    products.image,
+                    scale: 5,
+                    width: 100,
+                    height: 100,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    products.desc,
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xff385f98)),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '\$${products.price.toString()}',
+                    style: TextStyle(fontSize: 10, color: Colors.blue),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        '\$530,3',
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.grey,
+                            decoration: TextDecoration.lineThrough),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        '24\% off',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget buildFlash(Products products, int index) {
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedVideoIndex = index;
+
+            print(videoPaths[index]);
+          });
+
+          // Navigate to VideoCourse screen with the selected video path
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VideoCourse(videoPath: videoPaths[index]),
+            ),
+          );
+        },
+        child: Container(
+          width: 180,
+          height: 400,
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Color.fromARGB(255, 215, 221, 237)),
+              //color: Color.fromARGB(255, 215, 221, 237),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            // shape: BoxShape.
+            child: Padding(
+              padding: const EdgeInsets.all(7.0),
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Image.network(
+                      products.image,
+                      scale: 4,
+                      width: 170,
+                      height: 100,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      products.desc,
+                      style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff385f98)),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          '${products.price.toString()} L.E',
+                          style: TextStyle(fontSize: 10, color: Colors.blue),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 12,
+                          color: Colors.amber,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 12,
+                          color: Colors.amber,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 12,
+                          color: Colors.amber,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 12,
+                          color: Colors.amber,
+                        ),
+                        Icon(
+                          Icons.star,
+                          size: 12,
+                          color: Colors.amber,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          '\$530,3',
+                          style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.grey,
+                              decoration: TextDecoration.lineThrough),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          '24\% off',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     // List<int> list = [1, 2, 3, 4, 5];
     final List<String> list = [
       'https://www.techrepublic.com/wp-content/uploads/2023/07/tr71123-ai-art.jpeg',
@@ -35,25 +266,11 @@ class ShopScreen extends StatelessWidget {
               'https://www.plt.org/wp-content/uploads/2018/09/Depositphotos_64716325_l-2015.jpg',
           desc: 'SCIENCE AND CLIMATE CHANGE',
           price: 250.0),
-      Products(
-          image:
-              'https://img.freepik.com/free-vector/flat-design-nft-concept-illustration_23-2148954417.jpg?w=900&t=st=1694823916~exp=1694824516~hmac=31e94701741e0b07c5eb0731b0f9255207365579a7dfa1b9e7322ac2121c75ed',
-          desc: 'BASICS OF BLOCKCHAIN COURSE',
-          price: 250.0),
-      Products(
-          image:
-              'https://st5.depositphotos.com/1006318/66236/v/450/depositphotos_662368066-stock-illustration-woman-learning-foreign-language-computer.jpg',
-          desc: 'ARTIFICIAL INTELLIGENCE COURSE',
-          price: 250.0),
-      Products(
-          image:
-              'https://img.freepik.com/free-vector/characters-people-holding-blockchain-network_53876-26824.jpg?w=826&t=st=1694823969~exp=1694824569~hmac=e470ca8a1dfc26f72e15391ebc4106c12010ea9382fbf45c396ff3614d73fc35',
-          desc: 'ADVANCED BLOCK CHAIN COURSE',
-          price: 250.0),
+
     ];
 
     List<Products> MegoObj = [
-Products(
+      Products(
           image:
               'https://www.plt.org/wp-content/uploads/2018/09/Depositphotos_64716325_l-2015.jpg',
           desc: 'SCIENCE AND CLIMATE CHANGE',
@@ -63,27 +280,12 @@ Products(
               'https://www.ngaus.org/sites/default/files/styles/cover_image/public/2022-06/Mark%20Satellite%20WR-min.jpg?itok=0YoyttVq',
           desc: 'HARNESSING SATELLITES FOR ENVIRONMENT',
           price: 250.0),
-                Products(
+      Products(
           image:
               'https://play-lh.googleusercontent.com/mO5Gx_wJK7qC__SrsF-2h6VXFMlv3nbXpyv--s9-snJzz2TTfuhKCvz--lSqG_NlWq0',
           desc: 'Introduction to Astronomy ',
           price: 299.5),
-      
-      Products(
-          image:
-              'https://img.freepik.com/free-vector/flat-design-nft-concept-illustration_23-2148954417.jpg?w=900&t=st=1694823916~exp=1694824516~hmac=31e94701741e0b07c5eb0731b0f9255207365579a7dfa1b9e7322ac2121c75ed',
-          desc: 'BASICS OF BLOCKCHAIN COURSE',
-          price: 250.0),
-      Products(
-          image:
-              'https://st5.depositphotos.com/1006318/66236/v/450/depositphotos_662368066-stock-illustration-woman-learning-foreign-language-computer.jpg',
-          desc: 'ARTIFICIAL INTELLIGENCE COURSE',
-          price: 250.0),
-      Products(
-          image:
-              'https://img.freepik.com/free-vector/characters-people-holding-blockchain-network_53876-26824.jpg?w=826&t=st=1694823969~exp=1694824569~hmac=e470ca8a1dfc26f72e15391ebc4106c12010ea9382fbf45c396ff3614d73fc35',
-          desc: 'ADVANCED BLOCK CHAIN COURSE',
-          price: 250.0),
+
     ];
 
     List<Catagory> catagoryObj = [
@@ -174,7 +376,7 @@ Products(
                               height: 20,
                             ),
                             Text(
-                              "TAP HERE TO CLAM YOUR  ",
+                              "TAP HERE TO CLAME YOUR  ",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 11),
                             ),
@@ -280,6 +482,7 @@ Products(
                       ],
                     ),
                   ),
+
                   SizedBox(
                     height: 20,
                   ),
@@ -355,11 +558,11 @@ Products(
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) =>
-                            buildFlash(productsObj[index]),
+                            buildFlash(productsObj[index], index),
                         separatorBuilder: (context, index) => SizedBox(
                               width: 4,
                             ),
-                        itemCount: 6),
+                        itemCount: productsObj.length),
                   ),
 
                   SizedBox(
@@ -372,6 +575,7 @@ Products(
                         Expanded(
                           child: Text(
                             'Recommande',
+                             style: TextStyle(color: Color(0xff385f98)),
                           ),
                         ),
                         Expanded(
@@ -379,7 +583,7 @@ Products(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text('See More',
-                                style: TextStyle(color: Colors.blue)),
+                                 style: TextStyle(color: Color(0xff385f98)),),
                           ],
                         ))
                       ],
@@ -390,15 +594,14 @@ Products(
                   ),
                   Container(
                     height: 200,
-                    child: GestureDetector(
-                      child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) =>
-                              buildMego(MegoObj[index]),
-                          separatorBuilder: (context, index) => SizedBox(
-                                width: 10,
-                              ),
-                          itemCount: 6),
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) =>
+                          buildMego(MegoObj[index], index),
+                      separatorBuilder: (context, index) => SizedBox(
+                        width: 10,
+                      ),
+                      itemCount: MegoObj.length,
                     ),
                   ),
                 ],
@@ -419,8 +622,9 @@ Products(
             height: 50,
             width: 50,
             decoration: BoxDecoration(
-                color: Color(0xff385f98),
-                borderRadius: BorderRadius.circular(10)),
+              color: Color(0xff385f98),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Image.asset(
               catagory.image,
               scale: 20,
@@ -441,186 +645,6 @@ Products(
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget buildFlash(Products products) {
-    return Container(
-      width: 180,
-      height: 400,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Color.fromARGB(255, 215, 221, 237)),
-          //color: Color.fromARGB(255, 215, 221, 237),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        // shape: BoxShape.
-        child: InkWell(
-          onTap: () {},
-          child: Padding(
-            padding: const EdgeInsets.all(7.0),
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Image.network(
-                    products.image,
-                    scale: 4,
-                    width: 170,
-                    height: 100,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    products.desc,
-                    style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff385f98)),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        '${products.price.toString()} L.E',
-                        style: TextStyle(fontSize: 10, color: Colors.blue),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 12,
-                        color: Colors.amber,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 12,
-                        color: Colors.amber,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 12,
-                        color: Colors.amber,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 12,
-                        color: Colors.amber,
-                      ),
-                      Icon(
-                        Icons.star,
-                        size: 12,
-                        color: Colors.amber,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        '\$530,3',
-                        style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.grey,
-                            decoration: TextDecoration.lineThrough),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        '24\% off',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildMego(Products products) {
-    return Container(
-      width: 150,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade300),
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        // shape: BoxShape.
-        child: Padding(
-          padding: const EdgeInsets.all(7.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.network(
-                products.image,
-                scale: 5,
-                width: 100,
-                height: 100,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                products.desc,
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                '\$${products.price.toString()}',
-                style: TextStyle(fontSize: 10, color: Colors.blue),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text(
-                    '\$530,3',
-                    style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey,
-                        decoration: TextDecoration.lineThrough),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '24\% off',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.red,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

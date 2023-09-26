@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:session7test/Screens/LoginScreen.dart';
-import 'package:session7test/Screens/RegisterScreen.dart';
 import 'package:session7test/Screens/signup.dart';
 
 class Splash extends StatefulWidget {
@@ -37,7 +36,7 @@ class _MyWidgetState extends State<Splash> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'images/techV.jpg',
+              'images/Tech.png',
               height: 250,
               width: 250,
             ),

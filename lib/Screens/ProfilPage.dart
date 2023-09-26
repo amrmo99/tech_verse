@@ -18,7 +18,11 @@ class _ProfilPageState extends State<ProfilPage> {
       appBar: AppBar(
         actions: [
           GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),)),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                )),
             child: Padding(
               padding: const EdgeInsets.only(right: 8),
               child: Container(
@@ -73,7 +77,7 @@ class _ProfilPageState extends State<ProfilPage> {
             ),
           ),
           Text(
-            "London, England",
+            "Points: 3500",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.grey[400],
@@ -92,20 +96,307 @@ class _ProfilPageState extends State<ProfilPage> {
           ),
           Expanded(
             child: Container(
+              padding: EdgeInsets.only(top: 25, left: 10, right: 10),
               margin: EdgeInsets.only(left: 8, right: 8, top: 8),
               decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.15),
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(25))),
-              child: GridView.count(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                crossAxisCount: 2,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-                childAspectRatio: 5 / 6,
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'MY COURSES',
+                          style: TextStyle(color: Color(0xff385f98)),
+                        ),
+                      ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'MISSION',
+                              style: TextStyle(color: Color(0xff385f98)),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Astronomy',
+                                style: TextStyle(color: Color(0xff385f98)),
+                              ),
+                            ),
+                            Expanded(
+                              child: Slider(
+                                thumbColor: Colors.white,
+                                activeColor: Colors.green,
+                                inactiveColor: Colors.grey,
+                                divisions: 4,
+                                label: "75%",
+                                value: 75,
+                                min: 0,
+                                max: 100,
+                                onChanged: (value) {
+                                  print(value.round());
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Satellites For Environment',
+                                style: TextStyle(color: Color(0xff385f98)),
+                              ),
+                            ),
+                            Expanded(
+                              child: Slider(
+                                thumbColor: Colors.white,
+                                activeColor: Colors.green,
+                                inactiveColor: Colors.grey,
+                                divisions: 4,
+                                label: "25%",
+                                value: 25,
+                                min: 0,
+                                max: 100,
+                                onChanged: (value) {
+                                  print(value.round());
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Science and Climate',
+                                style: TextStyle(color: Color(0xff385f98)),
+                              ),
+                            ),
+                            Expanded(
+                              child: Slider(
+                                thumbColor: Colors.white,
+                                activeColor: Colors.green,
+                                inactiveColor: Colors.grey,
+                                divisions: 4,
+                                label: "50%",
+                                value: 50,
+                                min: 0,
+                                max: 100,
+                                onChanged: (value) {
+                                  print(value.round());
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'MY COURSES',
+                          style: TextStyle(color: Color(0xff385f98)),
+                        ),
+                      ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'RATING',
+                              style: TextStyle(color: Color(0xff385f98)),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Astronomy',
+                                style: TextStyle(color: Color(0xff385f98)),
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.grey,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Satellites For Environment',
+                                style: TextStyle(color: Color(0xff385f98)),
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.grey,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.grey,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Science and Climate',
+                                style: TextStyle(color: Color(0xff385f98)),
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Colors.amber,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

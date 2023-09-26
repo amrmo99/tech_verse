@@ -56,18 +56,24 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _submitButton() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 10),
-      margin: EdgeInsets.only(left: 70, right: 35),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        color: Color(0xffc64170),
-      ),
-      child: Text(
-        'Sign up',
-        style: TextStyle(fontSize: 20, color: Colors.white),
+    return GestureDetector(
+       onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 10),
+        margin: EdgeInsets.only(left: 70, right: 35),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          color: Color(0xffc64170),
+        ),
+        child: Text(
+          'Sign up',
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
       ),
     );
   }
