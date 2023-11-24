@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "838050117217",
+    "project_id": "tech-verse-319",
+    "storage_bucket": "tech-verse-319.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838050117217:android:4de2b264e609fb3e119c20",
+        "android_client_info": {
+          "package_name": "com.example.session7test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDWylEXjNIoFzW0BhLO_QtJhA-v7vc1QM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

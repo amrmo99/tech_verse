@@ -38,7 +38,7 @@ class _MyWidgetState extends State<VideoPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Play Video from Assets"),
+        title: const Text("Play Video from Assets"),
         backgroundColor: Colors.redAccent,
       ),
       body: Center(
@@ -49,19 +49,19 @@ class _MyWidgetState extends State<VideoPlayerScreen> {
               aspectRatio: controller.value.aspectRatio,
               child: VideoPlayer(controller),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Text("Total Duration: ${controller.value.duration}"),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             VideoProgressIndicator(
               controller,
               allowScrubbing: true,
-              colors: VideoProgressColors(
+              colors: const VideoProgressColors(
                 backgroundColor: Colors.redAccent,
                 playedColor: Colors.green,
                 bufferedColor: Colors.purple,
               ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -76,14 +76,14 @@ class _MyWidgetState extends State<VideoPlayerScreen> {
                   },
                   icon: Icon(controller.value.isPlaying
                       ? Icons.pause
-                      : Icons.play_arrow),
+                      : Icons.play_arrow,),
                 ),
                 IconButton(
                   onPressed: () {
-                    controller.seekTo(Duration(seconds: 0));
+                    controller.seekTo(const Duration());
                     setState(() {});
                   },
-                  icon: Icon(Icons.stop),
+                  icon: const Icon(Icons.stop),
                 ),
               ],
             ),

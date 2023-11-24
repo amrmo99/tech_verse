@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:session7test/Models/BlogScreen/blog_model.dart';
-import 'package:session7test/Screens/blog_screen.dart';
+import 'package:session7test/ui/screens/blog_screen.dart';
 
 class BlogPosts extends StatelessWidget {
   @override
@@ -9,7 +9,7 @@ class BlogPosts extends StatelessWidget {
     return Column(
       children: <Widget>[ 
         Container(
-          padding: EdgeInsets.symmetric(vertical: 5.0),
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
           height: MediaQuery.of(context).size.width * 0.90, 
           color: Colors.white,
           child: ListView.builder(
@@ -23,13 +23,13 @@ class BlogPosts extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (_) => BlogScreen(
-                        blog: blog
-                      )
-                    )
-                  )
+                        blog: blog,
+                      ),
+                    ),
+                  ),
                 },
                 child: Padding(
-                  padding: EdgeInsets.only(left: 20.0,top: 20.0, bottom: 20.0),
+                  padding: const EdgeInsets.only(left: 20.0,top: 20.0, bottom: 20.0),
                   child: Stack(
                     children: <Widget>[
                       Container(
@@ -38,12 +38,12 @@ class BlogPosts extends StatelessWidget {
                         decoration: BoxDecoration( 
                           borderRadius: BorderRadius.circular(14.0),
                           color: Colors.white,
-                          boxShadow: [BoxShadow(
+                          boxShadow: const [BoxShadow(
                             color: Colors.black26,
                             offset: Offset(0.0,4.0),
                             blurRadius: 10.0,
-                            spreadRadius: 0.10
-                          )]
+                            spreadRadius: 0.10,
+                          ),],
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(14.0), 
@@ -51,7 +51,7 @@ class BlogPosts extends StatelessWidget {
                             image: AssetImage(blog.imageUrl),
                             fit: BoxFit.cover,
                           ),
-                        )
+                        ),
                       ),
                       Positioned(
                         bottom: 10.0,
@@ -59,11 +59,11 @@ class BlogPosts extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Container(
+                            SizedBox(
                               width: MediaQuery.of(context).size.width * 0.60,
                               child: Text(
                                 blog.name, 
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 22.0,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -71,25 +71,25 @@ class BlogPosts extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10.0),
+                            const SizedBox(height: 10.0),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 CircleAvatar(
                                   radius: 10.0,
-                                  backgroundImage: AssetImage(blog.author.imageUrl)
+                                  backgroundImage: AssetImage(blog.author.imageUrl),
                                 ),
-                                SizedBox(width: 8.0),
+                                const SizedBox(width: 8.0),
                                 Text(
                                   blog.author.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 14.0
-                                  )
+                                    fontSize: 14.0,
+                                  ),
                                 ),
                                 
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -98,31 +98,31 @@ class BlogPosts extends StatelessWidget {
                         right: 10.0,
                         child: Row(
                           children: <Widget>[
-                            Icon(
+                            const Icon(
                               Icons.timer,
                               size: 10.0,
                               color: Colors.white,
                             ),
-                            SizedBox(width: 5.0),
+                            const SizedBox(width: 5.0),
                             Text(
                               blog.created_at,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 12.0,
-                              )
-                            )
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      Positioned(
+                      const Positioned(
                         top: 10.0,
                         right: 10.0,
                         child: Icon(
                           Icons.bookmark,
                           size: 26.0,
-                          color: Colors.white
+                          color: Colors.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -130,7 +130,7 @@ class BlogPosts extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(height: 5.0)
+        const SizedBox(height: 5.0),
       ],
     );
   }

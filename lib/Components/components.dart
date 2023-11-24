@@ -13,20 +13,20 @@ Widget defualtButton({
 })=>Container(
   width: width,
   height: height,
-  child: MaterialButton(
-    child: Text(
-      text,
-      style:TextStyle(
-          color: Colors.red,
-          fontWeight: FontWeight.bold
-      ),
-    ),
-    onPressed: function,
-
-  ),
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(radius),
     color: color,
+  ),
+  child: MaterialButton(
+    onPressed: function,
+    child: Text(
+      text,
+      style:const TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.bold,
+      ),
+    ),
+
   ),
 );
 
@@ -42,7 +42,7 @@ Widget defualtTextButton({
       text,
     style: TextStyle(
       color: textColor,
-      fontWeight: !isBold ? FontWeight.normal:FontWeight.bold
+      fontWeight: !isBold ? FontWeight.normal:FontWeight.bold,
     ),
   ),);
 
@@ -73,10 +73,10 @@ Widget defualtTextField({
   //controller
   decoration: InputDecoration(
   labelText: lable,
-  border: OutlineInputBorder(),
+  border: const OutlineInputBorder(),
   prefixIcon:Icon(
     prefix,
-  )
+  ),
   ),
 
   validator: validate,
@@ -95,19 +95,19 @@ Widget defualtTaskItem(Map model)=> Padding(
         radius: 35,
         child: Text('${model['time']}'),
       ),
-      SizedBox(
+      const SizedBox(
         width: 10,
       ),
       Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('${model['title']}',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
-          SizedBox(
+          Text('${model['title']}',style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+          const SizedBox(
             height: 5,
           ),
-          Text('${model['date']}', style: TextStyle(color: Colors.grey),),
+          Text('${model['date']}', style: const TextStyle(color: Colors.grey),),
         ],
-      )
+      ),
     ],
   ),
 );

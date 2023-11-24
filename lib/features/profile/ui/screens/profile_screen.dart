@@ -1,110 +1,154 @@
 import 'package:flutter/material.dart';
-import 'package:session7test/Screens/LoginScreen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:session7test/features/auth/cubit/auth_cubit.dart';
+import 'package:session7test/features/auth/cubit/auth_state.dart';
+import 'package:session7test/features/profile/cubit/profile_cubit.dart';
+import 'package:session7test/route_manager.dart';
+import 'package:session7test/ui/resources/app_colors.dart';
+import 'package:session7test/ui/resources/text_styles.dart';
 
-class ProfilPage extends StatefulWidget {
+class ProfilePage extends StatefulWidget {
   final String url;
 
-  ProfilPage({required this.url});
+  const ProfilePage({required this.url});
 
   @override
-  _ProfilPageState createState() => _ProfilPageState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilPageState extends State<ProfilPage> {
-  int _selectedItemIndex = 0;
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          GestureDetector(
-            onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginScreen(),
-                )),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 8),
+  final profile = ProfileCubit.get(context).user;
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: BlocListener<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthLoading) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    );
+                  } else {
+                    Navigator.pop(context);
+                    if (state is LoggedOut) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "Successfully logout",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          backgroundColor: AppColors.main,
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
+                    } else if (state is AuthError) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "There is an error",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          backgroundColor: AppColors.primary,
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
+                    }
+                  }
+                },
+                child: GestureDetector(
+                  onTap: () => Navigator.pushReplacementNamed(
+                    context,
+                    Routes.login,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      height: 50,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff385f98),
+                        borderRadius: BorderRadius.circular(10),),
+                      child: const Icon(
+                        Icons.logout,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Hero(
+              tag: widget.url,
               child: Container(
-                margin: EdgeInsets.only(top: 15),
-                height: 50,
-                width: 40,
+                margin: const EdgeInsets.only(top: 35),
+                height: 80,
+                width: 80,
                 decoration: BoxDecoration(
-                    color: Color(0xff385f98),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Icon(
-                  Icons.logout,
-                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 20,
+                    ),
+                  ],
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(widget.url),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-        backgroundColor: Colors.white,
-      ),
-      body: Column(
-        children: [
-          Hero(
-            tag: widget.url,
-            child: Container(
-              margin: EdgeInsets.only(top: 35),
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 5,
-                    blurRadius: 20,
-                  )
-                ],
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(widget.url),
-                ),
+             SizedBox(
+              height: 12.h,
+            ),
+             Text(
+              "${profile.firstName} ${profile.lastName}",
+              style: openSans18W500(color: Colors.black)
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            Text(
+              "Points: 3500",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[400],
               ),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            "Tom Smith",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+            const SizedBox(
+              height: 20,
             ),
-          ),
-          Text(
-            "Points: 3500",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[400],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildStatColumn("53", "Photos"),
+                buildStatColumn("223k", "Followers"),
+                buildStatColumn("117", "Following"),
+              ],
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              buildStatColumn("53", "Photos"),
-              buildStatColumn("223k", "Followers"),
-              buildStatColumn("117", "Following"),
-            ],
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(top: 25, left: 10, right: 10),
-              margin: EdgeInsets.only(left: 8, right: 8, top: 8),
+            Container(
+              padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
+              margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
               decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.15),
                   borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(25))),
+                      const BorderRadius.vertical(top: Radius.circular(25)),),
               child: Column(
                 children: [
-                  Row(
+                  const Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
@@ -123,23 +167,23 @@ class _ProfilPageState extends State<ProfilPage> {
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(25)),
+                        borderRadius: BorderRadius.circular(25),),
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Expanded(
+                            const Expanded(
                               child: Text(
                                 'Astronomy',
                                 style: TextStyle(color: Color(0xff385f98)),
@@ -153,7 +197,6 @@ class _ProfilPageState extends State<ProfilPage> {
                                 divisions: 4,
                                 label: "75%",
                                 value: 75,
-                                min: 0,
                                 max: 100,
                                 onChanged: (value) {
                                   print(value.round());
@@ -165,7 +208,7 @@ class _ProfilPageState extends State<ProfilPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Expanded(
+                            const Expanded(
                               child: Text(
                                 'Satellites For Environment',
                                 style: TextStyle(color: Color(0xff385f98)),
@@ -179,7 +222,6 @@ class _ProfilPageState extends State<ProfilPage> {
                                 divisions: 4,
                                 label: "25%",
                                 value: 25,
-                                min: 0,
                                 max: 100,
                                 onChanged: (value) {
                                   print(value.round());
@@ -191,7 +233,7 @@ class _ProfilPageState extends State<ProfilPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Expanded(
+                            const Expanded(
                               child: Text(
                                 'Science and Climate',
                                 style: TextStyle(color: Color(0xff385f98)),
@@ -205,7 +247,6 @@ class _ProfilPageState extends State<ProfilPage> {
                                 divisions: 4,
                                 label: "50%",
                                 value: 50,
-                                min: 0,
                                 max: 100,
                                 onChanged: (value) {
                                   print(value.round());
@@ -217,10 +258,10 @@ class _ProfilPageState extends State<ProfilPage> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Row(
+                  const Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
@@ -239,18 +280,18 @@ class _ProfilPageState extends State<ProfilPage> {
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(25)),
-                    child: Column(
+                        borderRadius: BorderRadius.circular(25),),
+                    child: const Column(
                       children: [
                         SizedBox(
                           height: 10,
@@ -396,8 +437,8 @@ class _ProfilPageState extends State<ProfilPage> {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -412,7 +453,7 @@ class _ProfilPageState extends State<ProfilPage> {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(url),
-            )),
+            ),),
       ),
     );
   }
@@ -422,7 +463,7 @@ class _ProfilPageState extends State<ProfilPage> {
       children: [
         Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
