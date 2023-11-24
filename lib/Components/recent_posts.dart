@@ -10,19 +10,19 @@ class RecentPosts extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: blogs
               .map((blog) => Container(
-                    margin: EdgeInsets.only(bottom: 15.0),
+                    margin: const EdgeInsets.only(bottom: 15.0),
                     width: MediaQuery.of(context).size.width,
                     height: 160,
-                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                    decoration: const BoxDecoration(color: Colors.white, boxShadow: [
                       BoxShadow(
                           color: Color(0xFFFAFAFA),
                           offset: Offset(0.0, 10.0),
                           blurRadius: 10.0,
-                          spreadRadius: 0.5)
-                    ]),
+                          spreadRadius: 0.5,),
+                    ],),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 20.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 20.0,),
                       child: Row(
                         children: <Widget>[
                           Container(
@@ -30,7 +30,7 @@ class RecentPosts extends StatelessWidget {
                             height: 100,
                             decoration: BoxDecoration(
                                 color: Colors.blue,
-                                borderRadius: BorderRadius.circular(10.0)),
+                                borderRadius: BorderRadius.circular(10.0),),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10.0),
                               child: Image(
@@ -41,49 +41,49 @@ class RecentPosts extends StatelessWidget {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.66,
-                            padding: EdgeInsets.symmetric(horizontal: 20.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                SizedBox(height: 5.0),
+                                const SizedBox(height: 5.0),
                                 Text(
                                   blog.author.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14.0,
                                   ),
                                 ),
-                                SizedBox(height: 5.0),
-                                Container(
+                                const SizedBox(height: 5.0),
+                                SizedBox(
                                   height: 65,
                                   child: Text(
                                     blog.name,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18.0,
                                         color: Color(0xff385f98),
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,),
                                   ),
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Row(
                                       children: <Widget>[
-                                        Icon(
+                                        const Icon(
                                           Icons.timer,
                                           color: Colors.grey,
                                           size: 12.0,
                                         ),
-                                        SizedBox(width: 5.0),
+                                        const SizedBox(width: 5.0),
                                         Text(
                                           blog.created_at,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.grey,
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
-                                    SizedBox(width: 20.0),
-                                    Row(
+                                    const SizedBox(width: 20.0),
+                                    const Row(
                                       children: <Widget>[
                                         Icon(
                                           Icons.remove_red_eye,
@@ -96,19 +96,19 @@ class RecentPosts extends StatelessWidget {
                                           style: TextStyle(
                                             color: Colors.grey,
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
-                  ))
-              .toList()),
+                  ),)
+              .toList(),),
     );
   }
 }
