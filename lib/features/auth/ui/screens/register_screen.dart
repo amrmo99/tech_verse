@@ -34,7 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _backButton() {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(
+        Navigator.pushReplacementNamed(
           context,
           Routes.splash,
         );

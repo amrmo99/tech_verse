@@ -20,7 +20,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-  final profile = ProfileCubit.get(context).user;
+    final profile = ProfileCubit.get(context).user;
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -67,10 +67,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   }
                 },
                 child: GestureDetector(
-                  onTap: () => Navigator.pushReplacementNamed(
-                    context,
-                    Routes.login,
-                  ),
+                  onTap: () {
+                    AuthCubit.get(context).logout();
+                    Navigator.pushReplacementNamed(context, Routes.login);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Container(
@@ -79,7 +79,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: 40,
                       decoration: BoxDecoration(
                         color: const Color(0xff385f98),
-                        borderRadius: BorderRadius.circular(10),),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: const Icon(
                         Icons.logout,
                         color: Colors.white,
@@ -111,13 +112,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-             SizedBox(
+            SizedBox(
               height: 12.h,
             ),
-             Text(
-              "${profile.firstName} ${profile.lastName}",
-              style: openSans18W500(color: Colors.black)
-            ),
+            Text("${profile.firstName} ${profile.lastName}",
+                style: openSans18W500(color: Colors.black),),
             SizedBox(
               height: 8.h,
             ),
@@ -143,9 +142,10 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
               margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
               decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.15),
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(25)),),
+                color: Colors.grey.withOpacity(0.15),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(25)),
+              ),
               child: Column(
                 children: [
                   const Row(
@@ -176,8 +176,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                     child: Column(
                       children: [
                         Row(
@@ -289,8 +290,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                     child: const Column(
                       children: [
                         SizedBox(
@@ -449,11 +451,12 @@ class _ProfilePageState extends State<ProfilePage> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(url),
-            ),),
+          borderRadius: BorderRadius.circular(30),
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(url),
+          ),
+        ),
       ),
     );
   }

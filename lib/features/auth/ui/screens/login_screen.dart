@@ -10,7 +10,6 @@ import 'package:session7test/features/profile/cubit/profile_state.dart';
 import 'package:session7test/route_manager.dart';
 import 'package:session7test/ui/resources/app_colors.dart';
 import 'package:session7test/ui/resources/text_styles.dart';
-import 'package:session7test/ui/screens/splash_screen.dart';
 import 'package:session7test/ui/widgets/default_form_field.dart';
 import 'package:session7test/ui/widgets/default_password_form_filed.dart';
 import 'package:session7test/ui/widgets/default_text_button.dart';
@@ -34,11 +33,9 @@ class _LoginPageState extends State<LoginScreen> {
   Widget _backButton() {
     return InkWell(
       onTap: () {
-        Navigator.push(
+        Navigator.pushReplacementNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => const SplashScreen(),
-          ),
+          Routes.splash,
         );
       },
       child: Container(
