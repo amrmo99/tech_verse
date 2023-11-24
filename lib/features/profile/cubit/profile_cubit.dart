@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:session7test/features/profile/cubit/profile_state.dart';
@@ -30,6 +32,23 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(UpdateUserSuccess());
     } catch (e) {
       emit(UpdateUserError(Failure.fromException(e).message));
+    }
+  }
+
+  Future<void> uploadMedicalEquipmentImagesToFireStorage(
+    String filePath,
+    File imageFile,
+  ) async {
+    emit(UploadProfileImageLoading());
+    try {
+      await profileFirebaseService
+          .uploadProfileImage(filePath, imageFile)
+          .then((value) => getUser());
+      emit(UploadProfileImageSuccess());
+    } catch (e) {
+      emit(
+        UploadProfileImageError(Failure.fromException(e).message),
+      );
     }
   }
 }

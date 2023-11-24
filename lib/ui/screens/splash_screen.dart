@@ -14,9 +14,6 @@ class SplashScreen extends StatefulWidget {
 
 class _MyWidgetState extends State<SplashScreen> {
 
-  TextEditingController idController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController secondNameController = TextEditingController();
 
   @override
   void initState() {

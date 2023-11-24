@@ -169,7 +169,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        ProfilePage(url: urlProfilePhoto),),);
+                        const ProfilePage(),),);
               },
               child: Hero(
                 tag: urlProfilePhoto,

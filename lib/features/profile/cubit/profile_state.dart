@@ -21,3 +21,13 @@ class UpdateUserError extends ProfileState {
 
   UpdateUserError(this.message);
 }
+
+class UploadProfileImageLoading extends ProfileState {}
+
+class UploadProfileImageSuccess extends ProfileState {}
+
+class UploadProfileImageError extends ProfileState {
+  final String message;
+
+  UploadProfileImageError(this.message);
+}

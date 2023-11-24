@@ -19,9 +19,7 @@ class _HomeLayoutState extends State<HomeLayout> {
     const HomeScreen(),
     const CommunityScreen(),
     const PostsScreen(),
-    const ProfilePage(
-      url: "https://cdn-icons-png.flaticon.com/128/2922/2922506.png",
-    ),
+    const ProfilePage(),
   ];
 
   @override

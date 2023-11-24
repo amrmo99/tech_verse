@@ -6,12 +6,14 @@ import 'package:session7test/features/auth/cubit/auth_cubit.dart';
 import 'package:session7test/features/profile/cubit/profile_cubit.dart';
 import 'package:session7test/firebase_options.dart';
 import 'package:session7test/route_manager.dart';
+import 'package:session7test/utils/bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Bloc.observer = AppBlocObserver();
   runApp(const MyApp());
 }
 

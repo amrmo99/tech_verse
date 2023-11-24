@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:session7test/utils/constants.dart';
 import 'package:session7test/utils/data/models/user.dart';
 
 class ProfileFirebaseService {
+  final FirebaseStorage _storage = FirebaseStorage.instance;
   final _usersCollection =
       FirebaseFirestore.instance.collection(FirebasePath.users);
 
@@ -18,5 +22,18 @@ class ProfileFirebaseService {
     final userDoc = _usersCollection.doc(currentUserId);
     final updatedUserData = updatedUser.toJson();
     await userDoc.update(updatedUserData);
+  }
+
+  Future<void> uploadProfileImage(String filePath, File imageFile) async {
+    final Reference storageRef =
+        _storage.ref().child(FirebasePath.users).child(filePath);
+    final UploadTask uploadTask =
+        storageRef.child('${imageFile.hashCode}').putFile(imageFile);
+    final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+    final String downloadUrl = await snapshot.ref.getDownloadURL();
+
+    final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+    final userDoc = _usersCollection.doc(currentUserId);
+    await userDoc.update({'profileImage': downloadUrl});
   }
 }

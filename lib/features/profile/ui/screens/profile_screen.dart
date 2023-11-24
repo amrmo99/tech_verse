@@ -1,26 +1,31 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:session7test/features/auth/cubit/auth_cubit.dart';
 import 'package:session7test/features/auth/cubit/auth_state.dart';
 import 'package:session7test/features/profile/cubit/profile_cubit.dart';
+import 'package:session7test/features/profile/cubit/profile_state.dart';
 import 'package:session7test/route_manager.dart';
 import 'package:session7test/ui/resources/app_colors.dart';
 import 'package:session7test/ui/resources/text_styles.dart';
+import 'package:session7test/ui/widgets/loading_indicator.dart';
 
 class ProfilePage extends StatefulWidget {
-  final String url;
-
-  const ProfilePage({required this.url});
+  const ProfilePage();
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  File? imageFile;
+
   @override
   Widget build(BuildContext context) {
-    final profile = ProfileCubit.get(context).user;
+    final profile = ProfileCubit.get(context);
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -90,38 +95,121 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            Hero(
-              tag: widget.url,
-              child: Container(
-                margin: const EdgeInsets.only(top: 35),
-                height: 80,
-                width: 80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 5,
-                      blurRadius: 20,
-                    ),
-                  ],
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(widget.url),
-                  ),
-                ),
+            GestureDetector(
+              onTap: () async {},
+              child: BlocConsumer<ProfileCubit, ProfileState>(
+                listener: (_, state) {
+                  if (state is UploadProfileImageLoading) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const LoadingIndicator();
+                      },
+                    );
+                  } else {
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.pop(context);
+                    }
+                    if (state is UploadProfileImageError) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "Failed to Upload",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          backgroundColor: AppColors.error,
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
+                    }
+                    if (state is UploadProfileImageSuccess) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "Successfully Uploaded",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          backgroundColor: AppColors.main,
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
+                    }
+                  }
+                },
+                builder: (context, state) {
+                  return Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      Hero(
+                        tag: ProfileCubit.get(context).user.profileImage != null
+                            ? ProfileCubit.get(context).user.profileImage!
+                            : "https://cdn-icons-png.flaticon.com/128/2922/2922506.png",
+                        child: Container(
+                          height: 120.h,
+                          width: 120.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 5,
+                                blurRadius: 20,
+                              ),
+                            ],
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                ProfileCubit.get(context).user.profileImage !=
+                                        null
+                                    ? ProfileCubit.get(context)
+                                        .user
+                                        .profileImage!
+                                    : "https://cdn-icons-png.flaticon.com/128/2922/2922506.png",
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          final ImagePicker picker = ImagePicker();
+                          final XFile? xFile = await picker.pickImage(
+                            source: ImageSource.gallery,
+                          );
+
+                          if (xFile != null) {
+                            File xFilePathToFile(XFile xFile) {
+                              return File(xFile.path);
+                            }
+
+                            imageFile = xFilePathToFile(xFile);
+                            if (context.mounted) {
+                              profile.uploadMedicalEquipmentImagesToFireStorage(
+                                profile.user.id!,
+                                imageFile!,
+                              );
+                            }
+                          }
+                        },
+                        child: const Icon(Icons.edit),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
             SizedBox(
               height: 12.h,
             ),
-            Text("${profile.firstName} ${profile.lastName}",
-                style: openSans18W500(color: Colors.black),),
+            Text(
+              "${profile.user.firstName} ${profile.user.lastName}",
+              style: openSans18W500(color: Colors.black),
+            ),
             SizedBox(
               height: 8.h,
             ),
             Text(
-              "Points: 3500",
+              "Points: ${profile.user.points}",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[400],
@@ -199,9 +287,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 label: "75%",
                                 value: 75,
                                 max: 100,
-                                onChanged: (value) {
-                                  print(value.round());
-                                },
+                                onChanged: (value) {},
                               ),
                             ),
                           ],
@@ -224,9 +310,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 label: "25%",
                                 value: 25,
                                 max: 100,
-                                onChanged: (value) {
-                                  print(value.round());
-                                },
+                                onChanged: (value) {},
                               ),
                             ),
                           ],
@@ -249,9 +333,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 label: "50%",
                                 value: 50,
                                 max: 100,
-                                onChanged: (value) {
-                                  print(value.round());
-                                },
+                                onChanged: (value) {},
                               ),
                             ),
                           ],
